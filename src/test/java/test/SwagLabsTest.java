@@ -24,7 +24,7 @@ public class SwagLabsTest {
         SelenideLogger.removeListener("allure");
     }
 
-    @Test
+    /*@Test
     void shouldSuccessfullyPerformLoginAndOrderIfStandardUser() {
         var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
         var user = DataHelper.Auth.getStandardUser();
@@ -32,32 +32,44 @@ public class SwagLabsTest {
         productsPage.findPageTitle();
         productsPage.setSortingZA();
         productsPage.addThreeItemsToCart();
-        /*productsPage.removeItem1FromCart();
-        var cartPage = productsPage.enterCart();*/
+        *//*productsPage.removeItem1FromCart();
+        var cartPage = productsPage.enterCart();*//*
+    }*/
+
+    @Test
+    void shouldSetSortingAZ() {
+        var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
+        var user = DataHelper.Auth.getStandardUser();
+        var productsPage = loginPage.validLogin(user);
+        productsPage.findPageTitle();
+        productsPage.setSortingAZ();
     }
 
     @Test
-    void shouldGetFirstItemPrice() {
+    void shouldSetSortingZA() {
+        var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
+        var user = DataHelper.Auth.getStandardUser();
+        var productsPage = loginPage.validLogin(user);
+        productsPage.findPageTitle();
+        productsPage.setSortingZA();
+    }
+
+    @Test
+    void shouldSetSortingHiLo() {
+        var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
+        var user = DataHelper.Auth.getStandardUser();
+        var productsPage = loginPage.validLogin(user);
+        productsPage.findPageTitle();
+        productsPage.setSortingOptionHighToLow();
+    }
+
+    @Test
+    void shouldSetSortingLoHi() {
         var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
         var user = DataHelper.Auth.getStandardUser();
         var productsPage=loginPage.validLogin(user);
         productsPage.findPageTitle();
-        var actual = productsPage.getFirstItemPrice();
-        var expected = 29;
-        Assertions.assertEquals(expected, actual);
-
-
-
-
-
-
-
-
-
-
-
-
-
+        productsPage.setSortingOptionLowToHigh();
 
 
     }

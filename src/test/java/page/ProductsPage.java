@@ -2,6 +2,7 @@ package page;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.Assertions;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
@@ -37,8 +38,8 @@ public class ProductsPage {
     private static final ElementsCollection inventoryItems = $$(".inventory_item_name");
 
     private static final ElementsCollection inventoryPrices = $$(".pricebar .inventory_item_price");
-    private final String currency = "$";
-    private final String cents = ".99";
+    /*private final String currency = "$";
+    private final String cents = ".99";*/
 
     private static final SelenideElement cart = $(".shopping_cart_container .shopping_cart_link");
     private static final SelenideElement cartBadge = $(".shopping_cart_badge");
@@ -48,14 +49,16 @@ public class ProductsPage {
     }
 
     private int extractPrice(String text) {
+        String currency = "$";
+        String cents = ".99";
         var currencySign = text.indexOf(currency);
         var dotCents = text.indexOf(cents);
         var value = text.substring(currencySign + currency.length(), dotCents);
         return Integer.parseInt(value);
     }
 
-    public int getFirstItemPrice() {
-        var text = inventoryPrices.first().text();
+    public int getItemPrice(int queue) {
+        var text = inventoryPrices.get(queue).text();
         return extractPrice(text);
     }
 
@@ -76,8 +79,17 @@ public class ProductsPage {
     public void setSortingOptionLowToHigh() {
         sortContainer.click();
         sortingOptionLowToHigh.click();
-        activeOption.shouldHave(exactText("Price (low to high)"));
-        inventoryItems.get(0).shouldHave(exactText("Sauce Labs Backpack"));
+        var firstItemPrice = getItemPrice(0);
+        var lastItemPrice = getItemPrice(5);
+        Assertions.assertTrue(firstItemPrice < lastItemPrice);
+    }
+
+    public void setSortingOptionHighToLow() {
+        sortContainer.click();
+        sortingOptionHighToLow.click();
+        var firstItemPrice = getItemPrice(0);
+        var lastItemPrice = getItemPrice(5);
+        Assertions.assertTrue(firstItemPrice > lastItemPrice);
     }
 
     public void addThreeItemsToCart() {
