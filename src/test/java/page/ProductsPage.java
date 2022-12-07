@@ -49,8 +49,8 @@ public class ProductsPage {
     }
 
     private int extractPrice(String text) {
-        String currency = "$";
-        String cents = ".99";
+        var currency = "$";
+        var cents = ".99";
         var currencySign = text.indexOf(currency);
         var dotCents = text.indexOf(cents);
         var value = text.substring(currencySign + currency.length(), dotCents);
