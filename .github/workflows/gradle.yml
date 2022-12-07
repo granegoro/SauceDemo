@@ -1,20 +1,17 @@
-name: Java CI with Gradle
+image: Ubuntu  # образ для сборки
 
-on: [push, pull_request]
+stack: jdk 11  # версия JDK
 
-jobs:
-  build:
-    - chmod +x gradlew
-    - ./gradlew test -Dselenide.headless=true --info
+branches:
+  only:
+    - main  # ветка git
 
-    runs-on: ubuntu-latest
+build: off  # будем использовать свой скрипт сборки
 
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'adopt'
-      - name: Build with Gradle
-        run: ./gradlew test
+install:
+  # запускаем SUT (& означает, что в фоновом режиме не блокируем терминал для запуска тестов)
+  - java -jar ./artifacts/app-ibank-build-for-testers.jar &
+
+build_script:
+  - chmod +x gradlew
+  - ./gradlew test -Dselenide.headless=true --info  # запускаем тест, флаг --info позволяет выводить больше информации
