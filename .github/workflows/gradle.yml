@@ -3,8 +3,9 @@ name: Java CI with Gradle
 on: [push, pull_request]
 
 jobs:
-  build: chmod +x gradlew
-  ./gradlew test -Dselenide.headless=true --info
+  build:
+    - chmod +x gradlew
+    - ./gradlew test -Dselenide.headless=true --info
 
     runs-on: ubuntu-latest
 
