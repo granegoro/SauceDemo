@@ -43,7 +43,7 @@ public class SwagLabsTest {
         var productsPage=loginPage.validLogin(user);
         productsPage.findPageTitle();
         var actual = productsPage.getFirstItemPrice();
-        var expected = 29;
+        var expected = 28;
         Assertions.assertEquals(expected, actual);
 
 
