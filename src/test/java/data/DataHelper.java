@@ -1,5 +1,6 @@
 package data;
 
+import com.codeborne.selenide.conditions.localstorage.Item;
 import lombok.Value;
 
 public class DataHelper {
@@ -21,9 +22,12 @@ public class DataHelper {
     }
 
     public static String getPerformanceGlitchUserLogin() {
-        return ("performance_glitch_use");
+        return ("performance_glitch_user");
     }
 
+    public static ItemInfo get0ItemInfo() {
+        return new ItemInfo("add-to-cart-sauce-labs-bike-light");
+    }
 
     public static class Auth {
         private Auth() {
@@ -44,14 +48,29 @@ public class DataHelper {
                     getPassword()
             );
         }
+    }
 
-
-
-        @Value
-        public static class UserInfo {
-            String login;
-            String password;
+    /*public static class Item {
+        private Item() {
         }
 
+        public static ItemInfo getItemId() {
+
+            return new ItemInfo(
+
+            );
+        }*/
+/*
+}*/
+    @Value
+    public static class ItemInfo {
+        String testId;
     }
+
+    @Value
+    public static class UserInfo {
+        String login;
+        String password;
+    }
+
 }

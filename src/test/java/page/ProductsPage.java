@@ -2,9 +2,12 @@ package page;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import data.DataHelper;
+import lombok.Value;
 import org.junit.jupiter.api.Assertions;
 
 import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static java.awt.SystemColor.text;
@@ -20,6 +23,9 @@ public class ProductsPage {
     private static final SelenideElement sortingOptionLowToHigh = $("[value=lohi]");
     private static final SelenideElement sortingOptionHighToLow = $("[value=hilo]");
 
+    private static final ElementsCollection items = $$(".inventory_item");
+    private static final ElementsCollection addItem = $$(".inventory_item .pricebar div");
+
     private static final SelenideElement addItem0 = $("[data-test=add-to-cart-sauce-labs-bike-light]");
     private static final SelenideElement removeItem0 = $("[data-test=remove-sauce-labs-bike-light]");
 
@@ -28,6 +34,9 @@ public class ProductsPage {
 
     private static final SelenideElement addItem2 = $("[data-test=add-to-cart-sauce-labs-onesie]");
     private static final SelenideElement removeItem2 = $("[data-test=remove-sauce-labs-onesie]");
+
+    private static final SelenideElement addItem3 = $("[data-test=add-to-cart-sauce-labs-bike-ligh]");
+    private static final SelenideElement removeItem3 = $("[data-test=remove-sauce-labs-bike-ligh]");
 
     private static final SelenideElement addItem4 = $("[data-test=add-to-cart-sauce-labs-backpack]");
     private static final SelenideElement removeItem4 = $("[data-test=remove-sauce-labs-backpack]");
@@ -38,14 +47,24 @@ public class ProductsPage {
     private static final ElementsCollection inventoryItems = $$(".inventory_item_name");
 
     private static final ElementsCollection inventoryPrices = $$(".pricebar .inventory_item_price");
-    /*private final String currency = "$";
-    private final String cents = ".99";*/
 
     private static final SelenideElement cart = $(".shopping_cart_container .shopping_cart_link");
     private static final SelenideElement cartBadge = $(".shopping_cart_badge");
 
+    private static final SelenideElement terms = $(byText("Terms of Service"));
+    private static final SelenideElement policy = $(byText("Privacy Policy"));
+
+
     public void findPageTitle() {
         pageTitle.shouldHave(text("Products")).shouldBe(visible);
+    }
+
+    public void checkTerms() {
+        terms.click();
+    }
+
+    public void checkPolicy() {
+        policy.click();
     }
 
     private int extractPrice(String text) {
@@ -57,8 +76,8 @@ public class ProductsPage {
         return Integer.parseInt(value);
     }
 
-    public int getItemPrice(int queue) {
-        var text = inventoryPrices.get(queue).text();
+    public int getItemPrice(int itemNum) {
+        var text = inventoryPrices.get(itemNum).text();
         return extractPrice(text);
     }
 
@@ -92,43 +111,37 @@ public class ProductsPage {
         Assertions.assertTrue(firstItemPrice > lastItemPrice);
     }
 
-    public void addThreeItemsToCart() {
-        addItem0.click();
-        addItem1.click();
-        addItem4.click();
-        cartBadge.shouldHave(exactText("3"));
+    public void addItems(DataHelper.ItemInfo itemInfo) {
+        addItem.findBy(attribute("id", itemInfo.getTestId())).click();
     }
 
-    public void removeItem1FromCart() {
+    public void checkCartBadge(String badge) {
+        cartBadge.shouldHave(exactText(badge));
+    }
+
+    public void addAllItems() {
+        addItem0.click();
+        addItem1.click();
+        addItem2.click();
+        addItem3.click();
+        addItem4.click();
+        addItem5.click();
+        cartBadge.shouldHave(exactText("6"));
+    }
+
+    public void removeAllItems() {
         removeItem0.click();
-        cartBadge.shouldHave(exactText("2"));
+        removeItem1.click();
+        removeItem2.click();
+        removeItem3.click();
+        removeItem4.click();
+        removeItem5.click();
+        cartBadge.shouldNotBe(visible);
     }
 
     public CartPage enterCart() {
         cart.click();
         return new CartPage();
     }
-
-   /* public class DashboardPage {
-        // к сожалению, разработчики не дали нам удобного селектора, поэтому так
-        private ElementsCollection cards = $$(".list__item div");
-        private final String balanceStart = "баланс: ";
-        private final String balanceFinish = " р.";
-
-        public Dashboard() {
-        }
-
-        public int getCardBalance(String id) {
-            //перебрать все карты и найти по атрибуту data-test-id
-            return extractBalance(text);
-        }
-
-        private int extractBalance(String text) {
-            val start = text.indexOf(balanceStart);
-            val finish = text.indexOf(balanceFinish);
-            val value = text.substring(start + balanceStart.length(), finish);
-            return Integer.parseInt(value);
-        }
-    }*/
 
 }

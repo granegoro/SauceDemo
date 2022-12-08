@@ -11,7 +11,7 @@ public class LoginPage {
     private static final SelenideElement passwordField = $("input[data-test=password]");
     private static final SelenideElement loginButton = $("[data-test=login-button]");
 
-    public ProductsPage validLogin(DataHelper.Auth.UserInfo userInfo) {
+    public ProductsPage validLogin(DataHelper.UserInfo userInfo) {
         usernameField.setValue(userInfo.getLogin());
         passwordField.setValue(userInfo.getPassword());
         loginButton.click();

@@ -11,6 +11,8 @@ import page.LoginPage;
 import page.ProductsPage;
 
 import static com.codeborne.selenide.Selenide.open;
+import static data.DataHelper.get0ItemInfo;
+/*import static data.DataHelper.get0ItemInfo;*/
 
 public class SwagLabsTest {
 
@@ -24,17 +26,19 @@ public class SwagLabsTest {
         SelenideLogger.removeListener("allure");
     }
 
-    /*@Test
+    @Test
     void shouldSuccessfullyPerformLoginAndOrderIfStandardUser() {
         var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
         var user = DataHelper.Auth.getStandardUser();
         var productsPage = loginPage.validLogin(user);
+        var itemId = get0ItemInfo();
         productsPage.findPageTitle();
-        productsPage.setSortingZA();
-        productsPage.addThreeItemsToCart();
-        *//*productsPage.removeItem1FromCart();
-        var cartPage = productsPage.enterCart();*//*
-    }*/
+        productsPage.addItems(itemId);
+        productsPage.checkCartBadge("1");
+        /*var cartPage = productsPage.enterCart();*/
+    }
+
+    //Сортировка товаров
 
     @Test
     void shouldSetSortingAZ() {
