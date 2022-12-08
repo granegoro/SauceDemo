@@ -12,6 +12,7 @@ import page.ProductsPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static data.DataHelper.get0ItemInfo;
+import static data.DataHelper.get1ItemInfo;
 /*import static data.DataHelper.get0ItemInfo;*/
 
 public class SwagLabsTest {
@@ -27,14 +28,16 @@ public class SwagLabsTest {
     }
 
     @Test
-    void shouldSuccessfullyPerformLoginAndOrderIfStandardUser() {
+    void shouldAddItemtoCart() {
         var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
         var user = DataHelper.Auth.getStandardUser();
         var productsPage = loginPage.validLogin(user);
-        var itemId = get0ItemInfo();
+        var itemId1 = get0ItemInfo();
+        var itemId2 = get1ItemInfo();
         productsPage.findPageTitle();
-        productsPage.addItems(itemId);
-        productsPage.checkCartBadge("1");
+        productsPage.addItems(itemId1);
+        productsPage.addItems(itemId2);
+        productsPage.checkCartBadge("2");
         /*var cartPage = productsPage.enterCart();*/
     }
 

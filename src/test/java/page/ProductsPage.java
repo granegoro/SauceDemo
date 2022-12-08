@@ -24,7 +24,7 @@ public class ProductsPage {
     private static final SelenideElement sortingOptionHighToLow = $("[value=hilo]");
 
     private static final ElementsCollection items = $$(".inventory_item");
-    private static final ElementsCollection addItem = $$(".inventory_item .pricebar div");
+    private static final ElementsCollection addItem = $$(".inventory_item button");
 
     private static final SelenideElement addItem0 = $("[data-test=add-to-cart-sauce-labs-bike-light]");
     private static final SelenideElement removeItem0 = $("[data-test=remove-sauce-labs-bike-light]");
@@ -112,7 +112,7 @@ public class ProductsPage {
     }
 
     public void addItems(DataHelper.ItemInfo itemInfo) {
-        addItem.findBy(attribute("id", itemInfo.getTestId())).click();
+        addItem.findBy(attribute("data-test", itemInfo.getTestId())).click();
     }
 
     public void checkCartBadge(String badge) {

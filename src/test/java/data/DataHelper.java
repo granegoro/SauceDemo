@@ -29,6 +29,10 @@ public class DataHelper {
         return new ItemInfo("add-to-cart-sauce-labs-bike-light");
     }
 
+    public static ItemInfo get1ItemInfo() {
+        return new ItemInfo("add-to-cart-sauce-labs-bolt-t-shirt");
+    }
+
     public static class Auth {
         private Auth() {
         }
