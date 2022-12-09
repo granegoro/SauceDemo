@@ -17,20 +17,49 @@ public class DataHelper {
         return ("locked_out_user");
     }
 
-    public static String getProblemUserLogin() {
+/*    public static String getProblemUserLogin() {
         return ("problem_user");
     }
-
     public static String getPerformanceGlitchUserLogin() {
         return ("performance_glitch_user");
-    }
+    }*/
 
-    public static ItemInfo get0ItemInfo() {
+    public static ItemInfo get0ItemAddInfo() {
         return new ItemInfo("add-to-cart-sauce-labs-bike-light");
     }
-
-    public static ItemInfo get1ItemInfo() {
+    public static ItemInfo get1ItemAddInfo() {
         return new ItemInfo("add-to-cart-sauce-labs-bolt-t-shirt");
+    }
+    public static ItemInfo get2ItemAddInfo() {
+        return new ItemInfo("add-to-cart-sauce-labs-onesie");
+    }
+    public static ItemInfo get3ItemAddInfo() {
+        return new ItemInfo("add-to-cart-sauce-labs-bike-ligh");
+    }
+    public static ItemInfo get4ItemAddInfo() {
+        return new ItemInfo("add-to-cart-sauce-labs-backpack");
+    }
+    public static ItemInfo get5ItemAddInfo() {
+        return new ItemInfo("-sauce-labs-fleece-jacket");
+    }
+
+    public static ItemInfo get0ItemRemoveInfo() {
+        return new ItemInfo("remove-sauce-labs-bike-light");
+    }
+    public static ItemInfo get1ItemRemoveInfo() {
+        return new ItemInfo("remove-sauce-labs-bolt-t-shirt");
+    }
+    public static ItemInfo get2ItemRemoveInfo() {
+        return new ItemInfo("remove-sauce-labs-onesie");
+    }
+    public static ItemInfo get3ItemRemoveInfo() {
+        return new ItemInfo("remove-test.allthethings()-t-shirt-(red)");
+    }
+    public static ItemInfo get4ItemRemoveInfo() {
+        return new ItemInfo("remove-sauce-labs-backpack");
+    }
+    public static ItemInfo get5ItemRemoveInfo() {
+        return new ItemInfo("remove-sauce-labs-fleece-jacket");
     }
 
     public static class Auth {
