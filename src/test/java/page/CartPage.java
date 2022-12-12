@@ -1,33 +1,50 @@
 package page;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class CartPage {
 
-    /*private static final SelenideElement cartItem0 = $(".cart_item_label #item_0_title_link");
-    private static final SelenideElement cartItem1 = $(".cart_item_label #item_1_title_link");
-    private static final SelenideElement cartItem2 = $(".cart_item_label #item_2_title_link");
-    private static final SelenideElement cartItem3 = $(".cart_item_label #item_3_title_link");
-    private static final SelenideElement cartItem4 = $(".cart_item_label #item_4_title_link");
-    private static final SelenideElement cartItem5 = $(".cart_item_label #item_5_title_link");
+    private static final SelenideElement heading = $(".title");
 
-
-    private static final SelenideElement continueShoppingButton = $("[data-test=remove-sauce-labs-backpack]");
-
-
-
+    private static final ElementsCollection quantity = $$(".cart_quantity");
+    private static final ElementsCollection removeItem = $$(".cart_item button");
+    private static final ElementsCollection cartItems = $$(".inventory_item_name");
 
     private static final SelenideElement continueShoppingButton = $("[data-test=continue-shopping]");
     private static final SelenideElement checkoutButton = $("[data-test=checkout]");
 
-
-
-    public void checkItemsInCart() {
-
-class="inventory_item_name"
-
+    public CartPage() {
+        heading.shouldHave(text("Your Cart")).shouldBe(visible);
     }
-*/
+
+    public CheckoutPage checkout() {
+        checkoutButton.click();
+        return new CheckoutPage();
+    }
+
+    public ProductsPage continueShopping() {
+        continueShoppingButton.click();
+        return new ProductsPage();
+    }
+
+    public ItemPage enterItemPage(int index) {
+        cartItems.get(index).click();
+        return new ItemPage();
+    }
+
+    public void changeQuantity(int index) {
+        quantity.get(index).click();
+        quantity.get(index).shouldBe(Condition.interactable);
+    }
+
+    public void removeItem(int index) {
+        removeItem.get(index).click();
+    }
 }

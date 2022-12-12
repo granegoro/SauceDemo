@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class ProductsPage {
 
-    private static final SelenideElement pageTitle = $(".title");
+    private static final SelenideElement heading = $(".title");
 
     private static final SelenideElement sortContainer = $("[data-test=product_sort_container]");
     private static final SelenideElement activeOption = $(".select_container .active_option");
@@ -22,28 +22,16 @@ public class ProductsPage {
     private static final SelenideElement sortingOptionHighToLow = $("[value=hilo]");
 
     private static final ElementsCollection addItem = $$(".inventory_item button");
+    private static final ElementsCollection removeItem = $$(".inventory_item button");
 
     private static final ElementsCollection inventoryItems = $$(".inventory_item_name");
-
     private static final ElementsCollection inventoryPrices = $$(".pricebar .inventory_item_price");
 
     private static final SelenideElement cart = $(".shopping_cart_container .shopping_cart_link");
     private static final SelenideElement cartBadge = $(".shopping_cart_badge");
 
-    private static final SelenideElement terms = $(byText("Terms of Service"));
-    private static final SelenideElement policy = $(byText("Privacy Policy"));
-
-
-    public void findPageTitle() {
-        pageTitle.shouldHave(text("Products")).shouldBe(visible);
-    }
-
-    public void checkTerms() {
-        terms.click();
-    }
-
-    public void checkPolicy() {
-        policy.click();
+    public ProductsPage() {
+        heading.shouldHave(text("Products")).shouldBe(visible);
     }
 
     private int extractPrice(String text) {
@@ -92,6 +80,10 @@ public class ProductsPage {
 
     public void addItems(DataHelper.ItemInfo itemInfo) {
         addItem.findBy(attribute("data-test", itemInfo.getTestId())).click();
+    }
+
+    public void removeItems(DataHelper.ItemInfo itemInfo) {
+        removeItem.findBy(attribute("data-test", itemInfo.getTestId())).click();
     }
 
     public void checkCartBadge(String badge) {

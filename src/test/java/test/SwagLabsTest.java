@@ -34,7 +34,6 @@ public class SwagLabsTest {
         var productsPage = loginPage.validLogin(user);
         var addItem0 = get0ItemAddInfo();
         var addItem1 = get1ItemAddInfo();
-        productsPage.findPageTitle();
         productsPage.addItems(addItem0);
         productsPage.addItems(addItem1);
         productsPage.checkCartBadge("2");
@@ -48,7 +47,6 @@ public class SwagLabsTest {
         var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
         var user = DataHelper.Auth.getStandardUser();
         var productsPage = loginPage.validLogin(user);
-        productsPage.findPageTitle();
         productsPage.setSortingAZ();
     }
 
@@ -57,7 +55,6 @@ public class SwagLabsTest {
         var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
         var user = DataHelper.Auth.getStandardUser();
         var productsPage = loginPage.validLogin(user);
-        productsPage.findPageTitle();
         productsPage.setSortingZA();
     }
 
@@ -66,7 +63,6 @@ public class SwagLabsTest {
         var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
         var user = DataHelper.Auth.getStandardUser();
         var productsPage = loginPage.validLogin(user);
-        productsPage.findPageTitle();
         productsPage.setSortingOptionHighToLow();
     }
 
@@ -75,7 +71,6 @@ public class SwagLabsTest {
         var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
         var user = DataHelper.Auth.getStandardUser();
         var productsPage=loginPage.validLogin(user);
-        productsPage.findPageTitle();
         productsPage.setSortingOptionLowToHigh();
 
 
