@@ -27,9 +27,9 @@ public class OverviewPage {
     }
 
     //data-test=finish
-    public CartPage continueCheckout(String dataTest) {
+    public CompletePage finishCheckout(String dataTest) {
         checkoutButtons.findBy(Condition.attribute("data-test", dataTest)).click();
-        return new CartPage();
+        return new CompletePage();
     }
 
     public ItemPage openItemPage(int index) {

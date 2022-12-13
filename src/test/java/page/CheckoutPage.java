@@ -23,23 +23,17 @@ public class CheckoutPage {
         heading.shouldBe(Condition.visible).shouldHave(Condition.exactText("Checkout: Your Information"));
     }
 
-    public CartPage cancelCheckout(String dataTest) {
+    //  data-test=cancel
+    public OverviewPage cancelCheckout(String dataTest) {
         checkoutButtons.findBy(Condition.attribute("data-test", dataTest)).click();
-        return new CartPage();
+        return new OverviewPage();
     }
 
-    public CartPage continueCheckout(String dataTest) {
+    //  data-test=continue
+    public OverviewPage continueCheckout(String dataTest) {
         checkoutButtons.findBy(Condition.attribute("data-test", dataTest)).click();
-        return new CartPage();
+        return new OverviewPage();
     }
-
-
-
-
-
-
-//    private static final SelenideElement cancelButton = $("[data-test=cancel]");
-//    private static final SelenideElement postalCode = $("input[data-test=postalCode]");
 
 
 

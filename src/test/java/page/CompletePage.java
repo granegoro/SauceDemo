@@ -5,13 +5,13 @@ import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class CheckoutCompletePage {
+public class CompletePage {
 
     private static final SelenideElement heading = $(".title");
     private static final SelenideElement completeHeader = $(".complete-header");
     public static final SelenideElement backHome = $("[data-test=back-to-products]");
 
-    public CheckoutCompletePage() {
+    public CompletePage() {
         heading.shouldBe(Condition.visible).shouldHave(Condition.exactText("Checkout: Complete!"));
         completeHeader.shouldBe(Condition.visible);
     }

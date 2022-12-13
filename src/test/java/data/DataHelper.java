@@ -1,9 +1,20 @@
 package data;
 
 import com.codeborne.selenide.conditions.localstorage.Item;
+import com.github.javafaker.Faker;
 import lombok.Value;
 
+import java.util.Locale;
+
 public class DataHelper {
+
+    static Faker faker = new Faker();
+
+    static Faker fakerCyrillic = new Faker(new Locale("ru"));
+
+//    public static String generateValidHolderName(String locale) {
+//        return (faker.address().firstName() + " " + faker.address().lastName());
+//    }
 
     public static String getPassword() {
         return ("secret_sauce");
@@ -33,8 +44,9 @@ public class DataHelper {
     public static ItemInfo get2ItemAddInfo() {
         return new ItemInfo("add-to-cart-sauce-labs-onesie");
     }
-    public static ItemInfo get3ItemAddInfo() {
-        return new ItemInfo("add-to-cart-sauce-labs-bike-ligh");
+    public static ItemInfo get3ItemAddInfo()
+    {
+        return new ItemInfo("add-to-cart-test.allthethings()-t-shirt-(red)");
     }
     public static ItemInfo get4ItemAddInfo() {
         return new ItemInfo("add-to-cart-sauce-labs-backpack");
@@ -105,5 +117,11 @@ public class DataHelper {
         String login;
         String password;
     }
+
+//    @Value
+//    public static class OrderInfo {
+//        String login;
+//        String password;
+//    }
 
 }

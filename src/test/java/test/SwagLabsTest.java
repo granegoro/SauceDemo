@@ -11,9 +11,7 @@ import page.LoginPage;
 import page.ProductsPage;
 
 import static com.codeborne.selenide.Selenide.open;
-import static data.DataHelper.get0ItemAddInfo;
-import static data.DataHelper.get1ItemAddInfo;
-/*import static data.DataHelper.get0ItemInfo;*/
+import static data.DataHelper.*;
 
 public class SwagLabsTest {
 
@@ -27,6 +25,8 @@ public class SwagLabsTest {
         SelenideLogger.removeListener("allure");
     }
 
+
+    //HappyPath
     @Test
     void shouldAddItemstoCart() {
         var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
@@ -34,10 +34,23 @@ public class SwagLabsTest {
         var productsPage = loginPage.validLogin(user);
         var addItem0 = get0ItemAddInfo();
         var addItem1 = get1ItemAddInfo();
+        var addItem2 = get2ItemAddInfo();
+        var addItem3 = get3ItemAddInfo();
+        var removeItem2 = get2ItemRemoveInfo();
+        var removeItem3 = get3ItemRemoveInfo();
         productsPage.addItems(addItem0);
         productsPage.addItems(addItem1);
+        productsPage.addItems(addItem2);
+        productsPage.addItems(addItem3);
+        productsPage.removeItems(removeItem2);
+        productsPage.removeItems(removeItem3);
         productsPage.checkCartBadge("2");
-        /*var cartPage = productsPage.enterCart();*/
+        var cartPage = productsPage.enterCart();
+        cartPage.removeItem(1);
+        var checkoutPage = cartPage.checkout();
+        var overviewPage = checkoutPage.continueCheckout("continue");
+        var completePage = overviewPage.finishCheckout("finish");
+        completePage.backToProducts();
     }
 
     //Сортировка товаров
