@@ -86,6 +86,11 @@ public class ProductsPage {
         removeItem.findBy(attribute("data-test", itemInfo.getTestId())).click();
     }
 
+    public ItemPage enterItemPage(int index) {
+        inventoryItems.get(index).click();
+        return new ItemPage();
+    }
+
     public void checkCartBadge(String badge) {
         cartBadge.shouldHave(exactText(badge));
     }

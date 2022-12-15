@@ -1,6 +1,5 @@
 package data;
 
-import com.codeborne.selenide.conditions.localstorage.Item;
 import com.github.javafaker.Faker;
 import lombok.Value;
 
@@ -12,9 +11,17 @@ public class DataHelper {
 
     static Faker fakerCyrillic = new Faker(new Locale("ru"));
 
-//    public static String generateValidHolderName(String locale) {
-//        return (faker.address().firstName() + " " + faker.address().lastName());
-//    }
+    public static String generateValidFirstName(String locale) {
+        return (faker.address().firstName());
+    }
+
+    public static String generateValidLastName(String locale) {
+        return (faker.address().lastName());
+    }
+
+    public static String generatePostalCode() {
+        return (faker.address().zipCode());
+    }
 
     public static String getPassword() {
         return ("secret_sauce");
@@ -38,19 +45,23 @@ public class DataHelper {
     public static ItemInfo get0ItemAddInfo() {
         return new ItemInfo("add-to-cart-sauce-labs-bike-light");
     }
+
     public static ItemInfo get1ItemAddInfo() {
         return new ItemInfo("add-to-cart-sauce-labs-bolt-t-shirt");
     }
+
     public static ItemInfo get2ItemAddInfo() {
         return new ItemInfo("add-to-cart-sauce-labs-onesie");
     }
-    public static ItemInfo get3ItemAddInfo()
-    {
+
+    public static ItemInfo get3ItemAddInfo() {
         return new ItemInfo("add-to-cart-test.allthethings()-t-shirt-(red)");
     }
+
     public static ItemInfo get4ItemAddInfo() {
         return new ItemInfo("add-to-cart-sauce-labs-backpack");
     }
+
     public static ItemInfo get5ItemAddInfo() {
         return new ItemInfo("-sauce-labs-fleece-jacket");
     }
@@ -58,18 +69,23 @@ public class DataHelper {
     public static ItemInfo get0ItemRemoveInfo() {
         return new ItemInfo("remove-sauce-labs-bike-light");
     }
+
     public static ItemInfo get1ItemRemoveInfo() {
         return new ItemInfo("remove-sauce-labs-bolt-t-shirt");
     }
+
     public static ItemInfo get2ItemRemoveInfo() {
         return new ItemInfo("remove-sauce-labs-onesie");
     }
+
     public static ItemInfo get3ItemRemoveInfo() {
         return new ItemInfo("remove-test.allthethings()-t-shirt-(red)");
     }
+
     public static ItemInfo get4ItemRemoveInfo() {
         return new ItemInfo("remove-sauce-labs-backpack");
     }
+
     public static ItemInfo get5ItemRemoveInfo() {
         return new ItemInfo("remove-sauce-labs-fleece-jacket");
     }
@@ -95,18 +111,20 @@ public class DataHelper {
         }
     }
 
-    /*public static class Item {
-        private Item() {
+    public static class Order {
+        private Order() {
         }
 
-        public static ItemInfo getItemId() {
+        public static OrderInfo getValidOrderInfo() {
 
-            return new ItemInfo(
-
+            return new OrderInfo(
+                    generateValidFirstName("en"),
+                    generateValidLastName("en"),
+                    generatePostalCode()
             );
-        }*/
-/*
-}*/
+        }
+    }
+
     @Value
     public static class ItemInfo {
         String testId;
@@ -118,10 +136,11 @@ public class DataHelper {
         String password;
     }
 
-//    @Value
-//    public static class OrderInfo {
-//        String login;
-//        String password;
-//    }
+    @Value
+    public static class OrderInfo {
+        String firstName;
+        String lastName;
+        String postalCode;
+    }
 
 }
