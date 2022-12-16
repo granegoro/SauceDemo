@@ -4,23 +4,43 @@ import com.github.javafaker.Faker;
 import lombok.Value;
 
 import java.util.Locale;
+import java.util.Random;
 
 public class DataHelper {
 
-    static Faker faker = new Faker();
+    static Faker faker = new Faker(new Locale("en"));
 
     static Faker fakerCyrillic = new Faker(new Locale("ru"));
 
-    public static String generateValidFirstName(String locale) {
+    public static String generateValidFirstName() {
         return (faker.address().firstName());
     }
 
-    public static String generateValidLastName(String locale) {
+    public static String generateValidLastName() {
         return (faker.address().lastName());
+    }
+
+    public static String generateCyrillicFirstName() {
+        return (fakerCyrillic.address().firstName());
+    }
+
+    public static String generateCyrillicLastName() {
+        return (fakerCyrillic.address().lastName());
     }
 
     public static String generatePostalCode() {
         return (faker.address().zipCode());
+    }
+
+    public static String generateSpace() {
+        return (" ");
+    }
+
+    public static String generateSymbols() {
+        var symbols = new String[]{
+                "*%&^@", "#@$", "!@%"
+        };
+        return symbols[new Random().nextInt(symbols.length)];
     }
 
     public static String getPassword() {
@@ -31,16 +51,9 @@ public class DataHelper {
         return ("standard_user");
     }
 
-    public static String getLockedOutUserLogin() {
-        return ("locked_out_user");
-    }
-
-/*    public static String getProblemUserLogin() {
-        return ("problem_user");
-    }
-    public static String getPerformanceGlitchUserLogin() {
-        return ("performance_glitch_user");
-    }*/
+//    public static String getLockedOutUserLogin() {
+//        return ("locked_out_user");
+//    }
 
     public static ItemInfo get0ItemAddInfo() {
         return new ItemInfo("add-to-cart-sauce-labs-bike-light");
@@ -102,13 +115,13 @@ public class DataHelper {
             );
         }
 
-        public static UserInfo getLockedOutUser() {
-
-            return new UserInfo(
-                    getLockedOutUserLogin(),
-                    getPassword()
-            );
-        }
+//        public static UserInfo getLockedOutUser() {
+//
+//            return new UserInfo(
+//                    getLockedOutUserLogin(),
+//                    getPassword()
+//            );
+//        }
     }
 
     public static class Order {
@@ -118,12 +131,85 @@ public class DataHelper {
         public static OrderInfo getValidOrderInfo() {
 
             return new OrderInfo(
-                    generateValidFirstName("en"),
-                    generateValidLastName("en"),
+                    generateValidFirstName(),
+                    generateValidLastName(),
                     generatePostalCode()
             );
         }
+
+        public static OrderInfo getCyrillicOrderInfo() {
+
+            return new OrderInfo(
+                    generateCyrillicFirstName(),
+                    generateCyrillicLastName(),
+                    generatePostalCode()
+            );
+        }
+
+        public static OrderInfo getSpacesOrderInfo() {
+
+            return new OrderInfo(
+                    generateSpace(),
+                    generateSpace(),
+                    generateSpace()
+            );
+        }
+
+        public static OrderInfo getNumericFirstNameOrderInfo() {
+
+            return new OrderInfo(
+                    generateSpace(),
+                    generateValidLastName(),
+                    generatePostalCode()
+            );
+        }
+
+        public static OrderInfo getNumericLastNameOrderInfo() {
+
+            return new OrderInfo(
+                    generateValidFirstName(),
+                    generateSpace(),
+                    generatePostalCode()
+            );
+        }
+
+        public static OrderInfo getLettersInPostalCodeOrderInfo() {
+
+            return new OrderInfo(
+                    generateValidFirstName(),
+                    generateValidLastName(),
+                    generateValidLastName()
+            );
+        }
+
+        public static OrderInfo getSymbolicFirstNameOrderInfo() {
+
+            return new OrderInfo(
+                    generateSymbols(),
+                    generateValidLastName(),
+                    generatePostalCode()
+            );
+        }
+
+        public static OrderInfo getSymbolicLastNameOrderInfo() {
+
+            return new OrderInfo(
+                    generateValidFirstName(),
+                    generateSymbols(),
+                    generatePostalCode()
+            );
+        }
+
+        public static OrderInfo getSymbolicPostalCodeOrderInfo() {
+
+            return new OrderInfo(
+                    generateValidFirstName(),
+                    generateValidLastName(),
+                    generateSymbols()
+            );
+        }
     }
+
 
     @Value
     public static class ItemInfo {

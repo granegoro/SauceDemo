@@ -11,7 +11,7 @@ import page.ProductsPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static data.DataHelper.*;
-import static data.DataHelper.Order.getValidOrderInfo;
+import static data.DataHelper.Order.*;
 
 public class SwagLabsTest {
 
@@ -39,6 +39,133 @@ public class SwagLabsTest {
         var completePage = overviewPage.finishCheckout("finish");
         completePage.backToProducts();
     }
+
+    @Test
+    void shouldAddItemsToCartAndCompleteOrderIfCyrillicData() {
+        var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
+        var user = DataHelper.Auth.getStandardUser();
+        var productsPage = loginPage.validLogin(user);
+        var addItem = get0ItemAddInfo();
+        var orderInfo = getCyrillicOrderInfo();
+        productsPage.addItems(addItem);
+        var cartPage = productsPage.enterCart();
+        var checkoutPage = cartPage.checkout();
+        var overviewPage = checkoutPage.continueCheckout(orderInfo);
+        var completePage = overviewPage.finishCheckout("finish");
+        completePage.backToProducts();
+    }
+
+    @Test
+    void shouldNotCompleteOrderIfEmptyFieldsInOrderData() {
+        var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
+        var user = DataHelper.Auth.getStandardUser();
+        var productsPage = loginPage.validLogin(user);
+        var addItem = get0ItemAddInfo();
+        productsPage.addItems(addItem);
+        var cartPage = productsPage.enterCart();
+        var checkoutPage = cartPage.checkout();
+        checkoutPage.continueCheckoutWithEmptyFields();
+        checkoutPage.findErrorMessage();
+    }
+
+    @Test
+    void shouldNotCompleteOrderIfSpacesInOrderData() {
+        var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
+        var user = DataHelper.Auth.getStandardUser();
+        var productsPage = loginPage.validLogin(user);
+        var addItem = get0ItemAddInfo();
+        var orderInfo = getSpacesOrderInfo();
+        productsPage.addItems(addItem);
+        var cartPage = productsPage.enterCart();
+        var checkoutPage = cartPage.checkout();
+        checkoutPage.continueCheckout(orderInfo);
+        checkoutPage.findErrorMessage();
+    }
+
+    @Test
+    void shouldNotCompleteOrderIfNumericFirstNameInOrderData() {
+        var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
+        var user = DataHelper.Auth.getStandardUser();
+        var productsPage = loginPage.validLogin(user);
+        var addItem = get0ItemAddInfo();
+        var orderInfo = getNumericFirstNameOrderInfo();
+        productsPage.addItems(addItem);
+        var cartPage = productsPage.enterCart();
+        var checkoutPage = cartPage.checkout();
+        checkoutPage.continueCheckout(orderInfo);
+        checkoutPage.findErrorMessage();
+    }
+
+    @Test
+    void shouldNotCompleteOrderIfNumericLastNameInOrderData() {
+        var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
+        var user = DataHelper.Auth.getStandardUser();
+        var productsPage = loginPage.validLogin(user);
+        var addItem = get0ItemAddInfo();
+        var orderInfo = getNumericLastNameOrderInfo();
+        productsPage.addItems(addItem);
+        var cartPage = productsPage.enterCart();
+        var checkoutPage = cartPage.checkout();
+        checkoutPage.continueCheckout(orderInfo);
+        checkoutPage.findErrorMessage();
+    }
+
+    @Test
+    void shouldNotCompleteOrderIfNumericLettersInPostalCodeInOrderData() {
+        var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
+        var user = DataHelper.Auth.getStandardUser();
+        var productsPage = loginPage.validLogin(user);
+        var addItem = get0ItemAddInfo();
+        var orderInfo = getLettersInPostalCodeOrderInfo();
+        productsPage.addItems(addItem);
+        var cartPage = productsPage.enterCart();
+        var checkoutPage = cartPage.checkout();
+        checkoutPage.continueCheckout(orderInfo);
+        checkoutPage.findErrorMessage();
+    }
+
+    @Test
+    void shouldNotCompleteOrderIfSymbolicFirstNameInOrderData() {
+        var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
+        var user = DataHelper.Auth.getStandardUser();
+        var productsPage = loginPage.validLogin(user);
+        var addItem = get0ItemAddInfo();
+        var orderInfo = getSymbolicFirstNameOrderInfo();
+        productsPage.addItems(addItem);
+        var cartPage = productsPage.enterCart();
+        var checkoutPage = cartPage.checkout();
+        checkoutPage.continueCheckout(orderInfo);
+        checkoutPage.findErrorMessage();
+    }
+
+    @Test
+    void shouldNotCompleteOrderIfSymbolicLastNameInOrderData() {
+        var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
+        var user = DataHelper.Auth.getStandardUser();
+        var productsPage = loginPage.validLogin(user);
+        var addItem = get0ItemAddInfo();
+        var orderInfo = getSymbolicLastNameOrderInfo();
+        productsPage.addItems(addItem);
+        var cartPage = productsPage.enterCart();
+        var checkoutPage = cartPage.checkout();
+        checkoutPage.continueCheckout(orderInfo);
+        checkoutPage.findErrorMessage();
+    }
+
+    @Test
+    void shouldNotCompleteOrderIfSymbolicPostalCOdeInOrderData() {
+        var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
+        var user = DataHelper.Auth.getStandardUser();
+        var productsPage = loginPage.validLogin(user);
+        var addItem = get0ItemAddInfo();
+        var orderInfo = getSymbolicPostalCodeOrderInfo();
+        productsPage.addItems(addItem);
+        var cartPage = productsPage.enterCart();
+        var checkoutPage = cartPage.checkout();
+        checkoutPage.continueCheckout(orderInfo);
+        checkoutPage.findErrorMessage();
+    }
+
 
     @Test
     void shouldNotCompleteOrderWithEmptyCart() {
@@ -176,7 +303,7 @@ public class SwagLabsTest {
     void shouldSetSortingLoHi() {
         var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
         var user = DataHelper.Auth.getStandardUser();
-        var productsPage=loginPage.validLogin(user);
+        var productsPage = loginPage.validLogin(user);
         productsPage.setSortingOptionLowToHigh();
     }
 

@@ -5,6 +5,8 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import data.DataHelper;
 
+import static com.codeborne.selenide.Condition.hidden;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.by;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -21,8 +23,14 @@ public class CheckoutPage {
     private static final SelenideElement continueButton = $(".checkout_buttons [data-test=continue]");
     private static final SelenideElement cancelButton = $(".checkout_buttons [data-test=cancel]");
 
+    private static final SelenideElement errorMessage = $(byText("[data-test=error]"));
+
     public CheckoutPage() {
-        heading.shouldBe(Condition.visible).shouldHave(Condition.exactText("Checkout: Your Information"));
+        heading.shouldBe(visible).shouldHave(Condition.exactText("Checkout: Your Information"));
+    }
+
+    public void findErrorMessage() {
+        errorMessage.shouldBe(visible);
     }
 
     //  data-test=continue
@@ -32,6 +40,11 @@ public class CheckoutPage {
         postalCode.setValue(orderInfo.getPostalCode());
         continueButton.click();
         return new OverviewPage();
+    }
+
+    public void continueCheckoutWithEmptyFields() {
+        continueButton.click();
+        errorMessage.shouldBe(visible);
     }
 
     //  data-test=cancel

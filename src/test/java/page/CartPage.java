@@ -31,7 +31,7 @@ public class CartPage {
     }
 
     public void findEmptyCartMessage() {
-       emptyCart.shouldBe(visible);
+        emptyCart.shouldBe(visible);
     }
 
     public CheckoutPage checkout() {
