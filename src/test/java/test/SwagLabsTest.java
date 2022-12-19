@@ -69,7 +69,7 @@ public class SwagLabsTest {
     }
 
     @Test
-    void shouldNotCompleteOrderIfSpacesInOrderData() {
+    void shouldNotCompleteOrderIfBlankSpacesInOrderData() {
         var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
         var user = DataHelper.Auth.getStandardUser();
         var productsPage = loginPage.validLogin(user);
@@ -153,7 +153,7 @@ public class SwagLabsTest {
     }
 
     @Test
-    void shouldNotCompleteOrderIfSymbolicPostalCOdeInOrderData() {
+    void shouldNotCompleteOrderIfSymbolicPostalCodeInOrderData() {
         var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
         var user = DataHelper.Auth.getStandardUser();
         var productsPage = loginPage.validLogin(user);
