@@ -1,14 +1,17 @@
 package test;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import data.DataHelper;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import page.LoginPage;
 import page.ProductsPage;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static data.DataHelper.*;
 import static data.DataHelper.Order.*;
@@ -25,6 +28,13 @@ public class SwagLabsTest {
         SelenideLogger.removeListener("allure");
     }
 
+    @AfterEach
+    void resetApp() {
+        $(".bm-burger-button").click();
+        $("#reset_sidebar_link").click();
+        $("#logout_sidebar_link").click();
+        Selenide.refresh();
+    }
     @Test
     void shouldAddItemsToCartAndCompleteOrder() {
         var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
@@ -270,9 +280,9 @@ public class SwagLabsTest {
         var user = DataHelper.Auth.getStandardUser();
         var productsPage = loginPage.validLogin(user);
         var itemPage = productsPage.enterItemPage(0);
-        itemPage.addItems(get0ItemAddInfo());
+        itemPage.addItems();
         productsPage.checkCartBadge("1");
-        itemPage.removeItems(get0ItemRemoveInfo());
+        itemPage.removeItems();
     }
 
     @Test

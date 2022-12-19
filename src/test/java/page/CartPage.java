@@ -3,6 +3,7 @@ package page;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
@@ -13,7 +14,7 @@ public class CartPage {
 
     private static final SelenideElement heading = $(".title");
 
-    private static final ElementsCollection quantity = $$(".cart_quantity");
+    private static final ElementsCollection quantity = $$("input.cart_quantity");
     private static final ElementsCollection removeItem = $$(".cart_item button");
     private static final ElementsCollection cartItems = $$(".inventory_item_name");
     private static final SelenideElement removedItem = $(".removed_cart_item");
@@ -51,7 +52,6 @@ public class CartPage {
 
     public void changeQuantity(int index) {
         quantity.get(index).click();
-        quantity.get(index).shouldBe(Condition.interactable);
     }
 
     public void removeItem(int index) {

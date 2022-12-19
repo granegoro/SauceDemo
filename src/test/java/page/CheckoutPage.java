@@ -23,7 +23,7 @@ public class CheckoutPage {
     private static final SelenideElement continueButton = $(".checkout_buttons [data-test=continue]");
     private static final SelenideElement cancelButton = $(".checkout_buttons [data-test=cancel]");
 
-    private static final SelenideElement errorMessage = $(byText("[data-test=error]"));
+    private static final SelenideElement errorMessage = $(".error-message-container [data-test=error]");
 
     public CheckoutPage() {
         heading.shouldBe(visible).shouldHave(Condition.exactText("Checkout: Your Information"));

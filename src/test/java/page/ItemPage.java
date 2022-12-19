@@ -10,18 +10,18 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class ItemPage {
 
-    private static final ElementsCollection addButton = $$(".inventory_details_container button");
-    private static final ElementsCollection removeButton = $$(".inventory_details_container button");
+    private static final SelenideElement addButton = $(".inventory_details_desc_container button");
+    private static final SelenideElement removeButton = $(".inventory_details_desc_container button");
 
     private static final SelenideElement backToProductsButton = $("[data-test=back-to-products]");
 
 
-    public void addItems(DataHelper.ItemInfo itemInfo) {
-        addButton.findBy(attribute("data-test", itemInfo.getTestId())).click();
+    public void addItems() {
+        addButton.click();
     }
 
-    public void removeItems(DataHelper.ItemInfo itemInfo) {
-        removeButton.findBy(attribute("data-test", itemInfo.getTestId())).click();
+    public void removeItems() {
+        removeButton.click();
     }
 
     public ProductsPage backToProducts() {
