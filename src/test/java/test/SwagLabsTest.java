@@ -121,7 +121,7 @@ public class SwagLabsTest {
     }
 
     @Test
-    void shouldNotCompleteOrderIfNumericLettersInPostalCodeInOrderData() {
+    void shouldNotCompleteOrderIfLettersInPostalCodeInOrderData() {
         var loginPage = open(System.getProperty("sut.url"), LoginPage.class);
         var user = DataHelper.Auth.getStandardUser();
         var productsPage = loginPage.validLogin(user);
